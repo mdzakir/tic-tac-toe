@@ -1,0 +1,60 @@
+body{
+	font: 16px Arial, Sans;
+}
+
+#tic-tac-toe{
+	display: flex;
+	justify-content: center;
+}
+
+.players-form{
+	background: #f2f2f2;
+	border-radius: 10px;
+	margin: 20px;
+	padding: 20px;
+}
+
+.players-form input{
+	border: 1px solid #ccc;
+	padding: 6px 12px;
+	border-radius: 4px;
+}
+
+.players-form button{
+	background: #0044ff;
+	color: #fff;
+	border: 0;
+	padding: 6px 20px;
+	border-radius: 4px; 
+}
+
+.board{
+	width: 300px;
+	margin: auto;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: none;
+}
+
+.board .item{
+	height: 50px;
+	width: 50px;
+	border: 1px solid #ccc;
+	float: left;
+
+	background-color: #e7e7e7;
+    color: black;
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    font-size: 45px;
+    text-align: center;
+}
+
+.winner-announcement {
+    font-size: 40px;
+    color: green;
+    text-align: center;
+    margin-top: 45px;
+}
