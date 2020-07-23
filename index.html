@@ -1,33 +1,44 @@
 <script src="jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="script.js"></script>
-<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="style.css" />
+<link rel="stylesheet" href="fontawesome-free-5.14.0-web/css/all.css" />
 
 <div id="tic-tac-toe">
-	
-	<form class="players-form">
-		<div>
-			<label>Player 1 </label><input id="player-1" type="text" />
-			<label>Player 2 </label><input id="player-2" type="text" />
+  <form class="players-form">
+    <h1 class="heading">Tic Tac Toe</h1>
+    <div>
+      <div class="player-name-wrapper">
+        <span class="icon-wrapper"><i class="fas fa-times"></i></span
+        ><input id="player-1" type="text" placeholder="Player name" />
+      </div>
+      <div class="player-name-wrapper">
+        <span class="icon-wrapper"><i class="far fa-circle"></i></span>
+        <input id="player-2" type="text" placeholder="Player name" />
+      </div>
 
-			<button type="button" onclick="displayBoard();">Start the game</button>
-		</div>
+      <button
+        class="display-board-button"
+        type="button"
+        onclick="displayBoard();"
+      >
+        Start
+      </button>
+    </div>
+    <div class="winner-announcement"></div>
+    <div class="x-o-board-wrapper">
+      <ul class="board">
+        <li class="item item-1"></li>
+        <li class="item item-2"></li>
+        <li class="item item-3"></li>
 
-		<div class="winner-announcement"></div>
+        <li class="item item-4"></li>
+        <li class="item item-5"></li>
+        <li class="item item-6"></li>
 
-	</form>
-
-	<ul class="board">
-		<li class="item item-1"></li>
-		<li class="item item-2"></li>
-		<li class="item item-3"></li>
-		
-		<li class="item item-4"></li>
-		<li class="item item-5"></li>
-		<li class="item item-6"></li>
-
-		<li class="item item-7"></li>
-		<li class="item item-8"></li>
-		<li class="item item-9"></li>
-	</ul>
-
+        <li class="item item-7"></li>
+        <li class="item item-8"></li>
+        <li class="item item-9"></li>
+      </ul>
+    </div>
+  </form>
 </div>

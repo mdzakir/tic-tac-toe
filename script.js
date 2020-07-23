@@ -1,79 +1,118 @@
+var count = 0;
 
+$(function () {
+  let playerXName = $("#player-1").val();
+  let playerOName = $("#player-2").val();
 
-$(function(){
+  $(".board .item").on("click", function () {
+    var item = $(this);
 
-	// click toe
-	var count = 0;
-	$('.board .item').on('click', function () {
-		var item = $(this); 
+    console.log("count", count, item.find("i").hasClass("fa-times"));
 
-		if( oWinMadeit() ) {
-			$('.winner-announcement').html($('#player-2').val() + ' wins');
-			count = 0;
-		} else if ( xWinMadeit() ){
-			$('.winner-announcement').html($('#player-1').val() + ' wins');
-			count = 0;
-		} else if(count === 9){
-			!xWinMadeit() && !oWinMadeit() && 
-			$('.winner-announcement').html('There is a tie. Start a new game.');
-			count = 0;
-		} else if( item.hasClass('disabled') ) {
-			alert('disabled!');
-		} else if (count % 2 === 0){
-			count++;
-			item.addClass(' disabled').text('x');
-			if(xWinMadeit()) {
-				$('.winner-announcement').html($('#player-1').val() + ' wins');
-			};
-		} else {
-			count++;	
-			item.addClass(' disabled').text('o');
-			if(oWinMadeit()) { 
-				$('.winner-announcement').html($('#player-2').val() + ' wins');
-			};
-		}
-
-	});
-
+    if (oWinMadeit()) {
+      $(".winner-announcement").html(playerOName + " wins");
+      count = 0;
+    } else if (xWinMadeit()) {
+      $(".winner-announcement").html(playerXName + " wins");
+      count = 0;
+    } else if (count === 9) {
+      !xWinMadeit() &&
+        !oWinMadeit() &&
+        $(".winner-announcement").html("There is a tie. Start a new game.");
+      count = 0;
+    } else if (item.hasClass("disabled")) {
+      alert("Disabled!");
+    } else if (count % 2 === 0) {
+      count++;
+      item.addClass(" disabled").html('<i class="fas fa-times"></i>');
+      if (xWinMadeit()) {
+        $(".winner-announcement").html(playerXName + " wins!");
+      }
+    } else {
+      count++;
+      console.log("oWinMadeit", oWinMadeit());
+      item.addClass(" disabled").html('<i class="far fa-circle"></i>');
+      if (oWinMadeit()) {
+        $(".winner-announcement").html(playerOName + " wins!");
+      }
+    }
+  });
 });
 
-
-function generateBoard(){
-	var noofBoards = $('.board');
-	var board = $('.board').clone();
-	board.addClass('board-'+noofBoards);
+function generateBoard() {
+  var noofBoards = $(".board");
+  var board = $(".board").clone();
+  board.addClass("board-" + noofBoards);
 }
 
-/*
-checkChar(char){
+const hasMarked = (cell, icon) => {
+  return $(`.item-${cell} i`).hasClass(icon);
+};
 
-}*/
+const checkForTheWin = (icon) => {
+  let horizontalTop =
+    hasMarked(1, icon) && hasMarked(2, icon) && hasMarked(3, icon);
+  let horizontalMiddle =
+    hasMarked(4, icon) && hasMarked(5, icon) && hasMarked(6, icon);
+  let horizontalBottom =
+    hasMarked(7, icon) && hasMarked(8, icon) && hasMarked(9, icon);
+
+  let verticalLeft =
+    hasMarked(1, icon) && hasMarked(4, icon) && hasMarked(7, icon);
+  let verticalCenter =
+    hasMarked(2, icon) && hasMarked(5, icon) && hasMarked(8, icon);
+  let verticalRight =
+    hasMarked(3, icon) && hasMarked(6, icon) && hasMarked(9, icon);
+
+  let topLeftDiagonal =
+    hasMarked(1, icon) && hasMarked(5, icon) && hasMarked(9, icon);
+  let topRightDiagonal =
+    hasMarked(3, icon) && hasMarked(5, icon) && hasMarked(7, icon);
+
+  return (
+    horizontalTop ||
+    horizontalMiddle ||
+    horizontalBottom ||
+    verticalLeft ||
+    verticalCenter ||
+    verticalRight ||
+    topLeftDiagonal ||
+    topRightDiagonal
+  );
+};
 
 function oWinMadeit() {
-	return 	   $('.item-1').text() === 'o' && $('.item-2').text() === 'o' && $('.item-3').text() === 'o'
-			|| $('.item-4').text() === 'o' && $('.item-5').text() === 'o' && $('.item-6').text() === 'o'
-			|| $('.item-7').text() === 'o' && $('.item-8').text() === 'o' && $('.item-9').text() === 'o'
-			|| $('.item-1').text() === 'o' && $('.item-4').text() === 'o' && $('.item-7').text() === 'o'
-			|| $('.item-2').text() === 'o' && $('.item-5').text() === 'o' && $('.item-8').text() === 'o'
-			|| $('.item-3').text() === 'o' && $('.item-6').text() === 'o' && $('.item-9').text() === 'o'
-			|| $('.item-1').text() === 'o' && $('.item-5').text() === 'o' && $('.item-9').text() === 'o'
-			|| $('.item-3').text() === 'o' && $('.item-5').text() === 'o' && $('.item-7').text() === 'o';
+  console.log("o - clicked");
+  return checkForTheWin("fa-circle");
 }
 
 function xWinMadeit() {
-	return 	   $('.item-1').text() === 'x' && $('.item-2').text() === 'x' && $('.item-3').text() === 'x'
-			|| $('.item-4').text() === 'x' && $('.item-5').text() === 'x' && $('.item-6').text() === 'x'
-			|| $('.item-7').text() === 'x' && $('.item-8').text() === 'x' && $('.item-9').text() === 'x'
-			|| $('.item-1').text() === 'x' && $('.item-4').text() === 'x' && $('.item-7').text() === 'x'
-			|| $('.item-2').text() === 'x' && $('.item-5').text() === 'x' && $('.item-8').text() === 'x'
-			|| $('.item-3').text() === 'x' && $('.item-6').text() === 'x' && $('.item-9').text() === 'x'
-			|| $('.item-1').text() === 'x' && $('.item-5').text() === 'x' && $('.item-9').text() === 'x'
-			|| $('.item-3').text() === 'x' && $('.item-5').text() === 'x' && $('.item-7').text() === 'x';
+  console.log("x - clicked");
+  return checkForTheWin("fa-times");
 }
 
-function displayBoard(){
-	$('.item').text('').removeClass('disabled');
-	$('.winner-announcement').html('')
-	$('.board').show();
-	count = 0;
+function displayBoard() {
+  let playerXName = $("#player-1").val();
+  let playerOName = $("#player-2").val();
+  $("#player-1").parents(".player-name-wrapper").removeClass("error-input");
+  $("#player-2").parents(".player-name-wrapper").removeClass("error-input");
+  if (playerXName && playerOName) {
+    $("#player-1").attr("readonly", true);
+    $("#player-2").attr("readonly", true);
+    $(".item").text("").removeClass("disabled");
+    $(".winner-announcement").html("");
+    $(".board").show();
+    count = 0;
+  } else {
+    if ($("#player-1").val() === "") {
+      $("#player-1").parents(".player-name-wrapper").addClass("error-input");
+    } else {
+      $("#player-1").parents(".player-name-wrapper").removeClass("error-input");
+    }
+    if ($("#player-2").val() === "") {
+      $("#player-2").parents(".player-name-wrapper").addClass("error-input");
+    } else {
+      $("#player-2").parents(".player-name-wrapper").removeClass("error-input");
+    }
+  }
 }
